@@ -1,0 +1,81 @@
+﻿<body class="bg-slate-100">
+
+    <div class="lg:ml-64 p-6 pt-24 lg:pt-10">
+
+        <h1 class="text-4xl font-bold mb-8">
+            Gallery
+        </h1>
+
+        <form
+            action="../api/add_gallery.html"
+            method="POST"
+            enctype="multipart/form-data"
+            class="bg-white p-6 rounded-2xl shadow">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Photo Title"
+                required
+                class="w-full border p-3 rounded-lg mb-4">
+
+            <input
+                type="file"
+                name="image"
+                required
+                class="w-full border p-3 rounded-lg mb-4">
+
+            <button class="bg-teal-600 text-white px-6 py-3 rounded-lg">
+                Upload
+            </button>
+
+        </form>
+
+        <h2 class="text-3xl font-bold mt-10 mb-6">
+            Uploaded Photos
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                <div class="bg-white rounded-2xl shadow overflow-hidden">
+
+                    <img
+                        src="../uploads/gallery/<?= htmlspecialchars($photo['image']) ?>"
+                        class="w-full h-64 object-cover">
+
+                    <div class="p-4">
+
+                        <h3 class="font-bold text-lg">
+                        </h3>
+
+                        <a
+                            href="../api/delete_gallery.html?id=<?= $photo['id'] ?>"
+                            onclick="return confirm('Delete this photo?')"
+                            class="inline-block mt-4 bg-red-600 text-white px-4 py-2 rounded-lg">
+
+                            Delete
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+    </div>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        const adminMenuBtn = document.getElementById('adminMenuBtn');
+        const adminSidebar = document.getElementById('adminSidebar');
+
+        if (adminMenuBtn) {
+            adminMenuBtn.addEventListener('click', () => {
+                adminSidebar.classList.toggle('-translate-x-full');
+            });
+        }
+    </script>
+</body>
+

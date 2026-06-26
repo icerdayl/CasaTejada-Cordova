@@ -1,0 +1,198 @@
+﻿<body class="bg-slate-100">
+
+<!-- Mobile Top Bar -->
+<div class="lg:hidden fixed top-0 left-0 w-full bg-white shadow-md z-50 flex justify-between items-center px-6 py-4">
+
+    <h1 class="text-2xl font-bold text-teal-600">
+        Casa Tejada
+    </h1>
+
+    <button id="adminMenuBtn" class="text-3xl">
+        ☰
+    </button>
+
+</div>
+
+<!-- Sidebar -->
+<div id="adminSidebar"
+class="fixed top-0 left-0 h-full w-64 bg-teal-700 text-white p-6 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+
+    <h2 class="text-3xl font-bold mb-10 hidden lg:block">
+        Casa Tejada
+    </h2>
+
+    <nav class="space-y-4 mt-16 lg:mt-0">
+
+        <a href="dashboard.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Dashboard
+        </a>
+
+        <a href="bookings.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Bookings
+        </a>
+
+        <a href="packages.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Packages
+        </a>
+
+        <a href="gallery.html"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Gallery
+        </a>
+
+        <a href="calendar.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Calendar
+        </a>
+
+        <a href="logout.php"
+        class="block bg-red-600 hover:bg-red-700 p-3 rounded mt-8">
+            Logout
+        </a>
+
+    </nav>
+
+</div>
+
+    <div class="lg:ml-64 p-6 pt-24 lg:pt-10">
+
+    <h1 class="text-4xl font-bold mb-8">
+    Bookings
+    </h1>
+
+    <div class="bg-white rounded-2xl shadow overflow-hidden">
+
+    <!-- RESPONSIVE TABLE CONTAINER -->
+    <div class="overflow-x-auto">
+
+        <table class="w-full min-w-[1100px]">
+
+            <thead class="bg-slate-800 text-white">
+
+                <tr>
+                    <th class="p-4 text-left">Customer</th>
+                    <th class="p-4 text-left">Package</th>
+                    <th class="p-4 text-left">Date</th>
+                    <th class="p-4 text-left">Status</th>
+                    <th class="p-4 text-left">Reference</th>
+                    <th class="p-4 text-left">Receipt</th>
+                    <th class="p-4 text-left">Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            <?php foreach($bookings as $booking): ?>
+
+                <tr class="border-b hover:bg-slate-50">
+
+                    <td class="p-4 whitespace-nowrap">
+                        <?= htmlspecialchars($booking['customer_name']) ?>
+                    </td>
+
+                    <td class="p-4 whitespace-nowrap">
+                        <?= htmlspecialchars($booking['package_name']) ?>
+                    </td>
+
+                    <td class="p-4 whitespace-nowrap">
+                        <?= $booking['reservation_date'] ?>
+                    </td>
+
+                    <td class="p-4 whitespace-nowrap">
+                        <?= ucfirst($booking['status']) ?>
+                    </td>
+
+                    <td class="p-4 whitespace-nowrap">
+                        <?= $booking['reference_number'] ?>
+                    </td>
+
+                    <td class="p-4 whitespace-nowrap">
+
+                        <a
+                        class="text-blue-600 underline"
+                        target="_blank"
+                        href="../uploads/payments/<?= $booking['payment_proof'] ?>">
+
+                        View
+
+                        </a>
+
+                    </td>
+
+                    <td class="p-4 whitespace-nowrap">
+
+                        <div class="flex flex-wrap gap-2">
+
+                            <button
+                            class="approveBtn bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded"
+                            data-id="<?= $booking['id'] ?>">
+
+                            Approve
+
+                            </button>
+
+                            <button
+                            class="rejectBtn bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-2 rounded"
+                            data-id="<?= $booking['id'] ?>">
+
+                            Reject
+
+                            </button>
+
+                            <button
+                            class="deleteBtn bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded"
+                            data-id="<?= $booking['id'] ?>">
+
+                            Delete
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            <?php endforeach; ?>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+    const adminMenuBtn =
+    document.getElementById('adminMenuBtn');
+
+    const adminSidebar =
+    document.getElementById('adminSidebar');
+
+    if(adminMenuBtn){
+
+        adminMenuBtn.addEventListener('click', () => {
+
+            adminSidebar.classList.toggle('-translate-x-full');
+
+        });
+
+    }
+
+</script>
+
+<script>
+    document.querySelectorAll('.approveBtn').forEach(button=>{button.addEventListener('click',async()=>{const id =button.dataset.id;const response =await fetch('../api/approve_booking.html',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'id='+encodeURIComponent(id)});const data =await response.json();alert(data.message);location.reload();});});
+    document.querySelectorAll('.rejectBtn').forEach(button=>{button.addEventListener('click',async()=>{const id =button.dataset.id;const response =await fetch('../api/reject_booking.html',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'id='+encodeURIComponent(id)});const data =await response.json();alert(data.message);location.reload();});});
+    document.querySelectorAll('.deleteBtn').forEach(button=>{button.addEventListener('click',async()=>{if(!confirm('Delete booking?')){return;}const id =button.dataset.id;const response =await fetch('../api/delete_booking.html',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'id='+encodeURIComponent(id)});const data =await response.json();alert(data.message);location.reload();});});
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</body>
