@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gallery | Casa Tejada</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link
+        href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body class="bg-slate-100">
+
+    <div class="page-content max-w-7xl mx-auto px-5 py-20">
+
+        <!-- NAVBAR -->
+        <nav
+            id="navbar"
+            class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-100"
+        >
+
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="flex justify-between items-center h-20">
+
+                    <!-- Logo -->
+                    <a
+                        href="home.html"
+                        class="text-3xl font-bold logoText"
+                    >
+                        CASA TEJADA
+                    </a>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center gap-8">
+
+                        <a href="home.html">Home</a>
+                        <a href="about.html">About</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="booking.html">Book Now</a>
+                        <a href="track.html">Track Booking</a>
+                        <a href="available_dates.html">Availability</a>
+
+                    </div>
+
+                    <!-- Mobile Button -->
+                    <button
+                        id="menuBtn"
+                        class="md:hidden text-3xl"
+                    >
+                        ☰
+                    </button>
+
+                    <!-- Book Button -->
+                    <a
+                        href="booking.html"
+                        class="hidden md:block bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-2xl"
+                    >
+                        Book Now
+                    </a>
+
+                </div>
+
+                <!-- Mobile Menu -->
+                <div
+                    id="mobileMenu"
+                    class="hidden md:hidden bg-white rounded-xl shadow-lg p-4 space-y-4 absolute top-20 left-0 w-full z-50"
+                >
+
+                    <a href="home.html" class="block">Home</a>
+                    <a href="about.html" class="block">About</a>
+                    <a href="gallery.html" class="block">Gallery</a>
+                    <a href="contact.html" class="block">Contact</a>
+                    <a href="booking.html" class="block">Book Now</a>
+                    <a href="track.html" class="block">Track Booking</a>
+                    <a href="available_dates.html" class="block">Availability</a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <h1
+            class="text-5xl font-bold mb-8 text-center"
+            data-aos="fade-up"
+        >
+            Gallery
+        </h1>
+
+        <div
+            id="galleryContainer"
+            class="grid md:grid-cols-3 gap-6"
+        ></div>
+
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+    <script>
+        const menuBtn =
+            document.getElementById('menuBtn');
+
+        const mobileMenu =
+            document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    <script>
+        fetch('https://casatejada.infinityfreeapp.com/CasaTejada/api/get_gallery.php')
+        .then(response => response.json())
+        .then(data => {
+
+            let html = '';
+
+            data.forEach(photo => {
+
+                html += `
+                <div class="bg-white rounded-2xl shadow overflow-hidden">
+
+                    <img
+                        src="https://casatejada.infinityfreeapp.com/CasaTejada/uploads/gallery/${photo.image}"
+                        alt="${photo.title}"
+                        class="w-full h-64 object-cover"
+                    >
+
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold">
+                            ${photo.title}
+                        </h3>
+                    </div>
+
+                </div>
+                `;
+            });
+
+            document.getElementById('galleryContainer').innerHTML = html;
+
+        });
+
+        fetch('https://casatejada.infinityfreeapp.com/CasaTejada/api/get_gallery.php')
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            alert(data);
+        });
+        </script>
+
+</body>
+
+</html>

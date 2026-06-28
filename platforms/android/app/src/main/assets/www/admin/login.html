@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+  </head>
+  <body class="bg-slate-100">
+    <div class="min-h-screen flex items-center justify-center">
+      <form id="loginForm" class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-md">
+        <h1 class="text-4xl font-bold mb-8 text-center">Admin Login</h1>
+        <input type="text" name="username" placeholder="Username" required class="w-full border p-3 rounded-xl mb-4">
+        <input type="password" name="password" placeholder="Password" required class="w-full border p-3 rounded-xl mb-6">
+        <button class="w-full bg-teal-600 text-white p-3 rounded-xl">Login</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const response = await fetch('../api/login.php', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.success) {
+          window.location = 'dashboard.php';
+        } else {
+          alert(result.message);
+        }
+      });
+    </script>
+  </body>
+</html>

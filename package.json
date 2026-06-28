@@ -5,6 +5,8 @@
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
+    "css:build": "tailwindcss -i ./www/assets/css/input.css -o ./www/assets/css/style.css",
+    "css:watch": "tailwindcss -i ./www/assets/css/input.css -o ./www/assets/css/style.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -12,9 +14,6 @@
   ],
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
-  "devDependencies": {
-    "cordova-android": "^15.0.0"
-  },
   "cordova": {
     "platforms": [
       "android"
@@ -23,5 +22,8 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.3.1",
     "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "cordova-android": "^15.0.0"
   }
 }
