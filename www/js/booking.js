@@ -22,15 +22,6 @@
 
 loadPackages();
 
-const packagePrices = {
-  1: 5000,
-  2: 6000,
-  3: 7000,
-  4: 8000,
-  5: 10000,
-  6: 12000,
-};
-
 const packageSelect = document.getElementById("packageSelect");
 
 const extraRoom = document.querySelector('input[name="extra_room"]');
@@ -42,8 +33,11 @@ const totalPrice = document.getElementById("totalPrice");
 function calculateTotal() {
   let total = 0;
 
-  if (packageSelect.value) {
-    total += packagePrices[packageSelect.value];
+  const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+  const packagePrice = Number(selectedOption?.dataset.price || 0);
+
+  if (Number.isFinite(packagePrice)) {
+    total += packagePrice;
   }
 
   if (extraRoom.checked) {

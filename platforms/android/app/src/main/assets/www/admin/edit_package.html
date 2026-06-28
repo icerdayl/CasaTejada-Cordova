@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Edit Package</title> 
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body class="bg-slate-100">
+
+    <!-- Mobile Top Bar -->
+<div class="lg:hidden fixed top-0 left-0 w-full bg-white shadow-md z-50 flex justify-between items-center px-6 py-4">
+
+    <h1 class="text-2xl font-bold text-teal-600">
+        Casa Tejada
+    </h1>
+
+    <button id="adminMenuBtn" class="text-3xl">
+        ☰
+    </button>
+
+</div>
+
+<!-- Sidebar -->
+<div id="adminSidebar"
+class="fixed top-0 left-0 h-full w-64 bg-teal-700 text-white p-6 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+
+    <h2 class="text-3xl font-bold mb-10 hidden lg:block">
+        Casa Tejada
+    </h2>
+
+    <nav class="space-y-4 mt-16 lg:mt-0">
+
+        <a href="dashboard.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Dashboard
+        </a>
+
+        <a href="bookings.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Bookings
+        </a>
+
+        <a href="packages.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Packages
+        </a>
+
+        <a href="gallery.html"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Gallery
+        </a>
+
+        <a href="calendar.php"
+        class="block hover:bg-teal-600 p-3 rounded">
+            Calendar
+        </a>
+
+        <a href="logout.php"
+        class="block bg-red-600 hover:bg-red-700 p-3 rounded mt-8">
+            Logout
+        </a>
+
+    </nav>
+
+</div>
+
+    <div class="ml-64 p-10">
+
+        <h1 class="text-4xl font-bold mb-8">
+            Edit Package
+        </h1>
+
+        <form
+            method="POST"
+            class="bg-white p-8 rounded-2xl shadow max-w-2xl">
+
+            <label class="font-semibold">
+                Package Name
+            </label>
+
+            <input
+            type="text"
+            name="package_name"
+            value="<?= htmlspecialchars($package['package_name']) ?>"
+            class="w-full border p-3 rounded-lg mb-4"
+            required>
+
+            <label class="font-semibold">
+                Description
+            </label>
+
+            <textarea
+            name="description"
+            class="w-full border p-3 rounded-lg mb-4"
+            required></textarea>
+
+            <label class="font-semibold">
+                Pax Limit
+            </label>
+
+            <input
+            type="number"
+            name="pax_limit"
+            value="<?= $package['pax_limit'] ?>"
+            class="w-full border p-3 rounded-lg mb-4"
+            required>
+
+            <label class="font-semibold">
+                Bedrooms
+            </label>
+
+            <input
+            type="number"
+            name="bedrooms"
+            value="<?= $package['bedrooms'] ?>"
+            class="w-full border p-3 rounded-lg mb-4"
+            required>
+
+            <label class="font-semibold">
+                Price
+            </label>
+
+            <input
+            type="number"
+            step="0.01"
+            name="price"
+            value="<?= $package['price'] ?>"
+            class="w-full border p-3 rounded-lg mb-6"
+            required>
+
+            <button
+                class="bg-teal-600 text-white px-6 py-3 rounded-lg">
+
+                Save Changes
+
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

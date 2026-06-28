@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Available Dates</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+        rel="stylesheet"
+    >
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+</head>
+
+<body class="bg-slate-100">
+
+    <!-- NAVBAR -->
+    <nav
+        id="navbar"
+        class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-100"
+    >
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="flex justify-between items-center h-20">
+
+                <!-- Logo -->
+                <a
+                    href="home.html"
+                    class="text-3xl font-bold logoText"
+                >
+                    CASA TEJADA
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+
+                    <a href="home.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="booking.html">Book Now</a>
+                    <a href="track.html">Track Booking</a>
+                    <a href="available_dates.html">Availability</a>
+
+                </div>
+
+                <!-- Mobile Button -->
+                <button
+                    id="menuBtn"
+                    class="md:hidden text-3xl"
+                >
+                    ☰
+                </button>
+
+                <!-- Book Button -->
+                <a
+                    href="booking.html"
+                    class="hidden md:block bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-2xl"
+                >
+                    Book Now
+                </a>
+
+            </div>
+
+            <!-- Mobile Menu -->
+            <div
+                id="mobileMenu"
+                class="hidden md:hidden bg-white rounded-xl shadow-lg p-4 space-y-4 absolute top-20 left-0 w-full z-50"
+            >
+
+                <a href="home.html" class="block">Home</a>
+                <a href="about.html" class="block">About</a>
+                <a href="gallery.html" class="block">Gallery</a>
+                <a href="contact.html" class="block">Contact</a>
+                <a href="booking.html" class="block">Book Now</a>
+                <a href="track.html" class="block">Track Booking</a>
+                <a href="available_dates.html" class="block">Availability</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="page-content max-w-7xl mx-auto p-10">
+
+        <h1
+            class="text-5xl font-bold mt-8 mb-8 text-center"
+            data-aos="fade-up"
+        >
+            Reservation Calendar
+        </h1>
+
+        <div
+            class="bg-white p-6 rounded-3xl shadow"
+            data-aos="fade-up"
+            data-aos-delay="200"
+        >
+
+            <div id="calendar"></div>
+
+        </div>
+
+        <div
+            class="mt-8 bg-white p-6 rounded-3xl shadow"
+            data-aos="fade-up"
+            data-aos-delay="200"
+        >
+
+            <h2
+                class="text-2xl font-bold mb-4"
+                data-aos="fade-up"
+            >
+                Legend
+            </h2>
+
+            <div class="flex gap-6">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-6 h-6 bg-red-500 rounded"></div>
+
+                    <span>Reserved</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+    <script>
+        document.addEventListener(
+            'DOMContentLoaded',
+            function () {
+
+                const calendar =
+                    new FullCalendar.Calendar(
+                        document.getElementById('calendar'),
+                        {
+                            initialView: 'dayGridMonth',
+                            height: 700,
+                            events: 'api/get_public_calendar.php'
+                        }
+                    );
+
+                calendar.render();
+
+            }
+        );
+    </script>
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+    <script>
+        const menuBtn =
+            document.getElementById('menuBtn');
+
+        const mobileMenu =
+            document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+
+</html>
